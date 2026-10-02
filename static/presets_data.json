@@ -1,0 +1,2493 @@
+{
+  "ohrc": {
+    "metadata": {
+      "id": "ohrc",
+      "name": "Chandrayaan-2 OHRC vs LROC NAC",
+      "category": "Sun-Angle Invariance (Azimuth 45 deg vs 150 deg)",
+      "sensor": "OHRC",
+      "src_path": "static/samples/ohrc_source.png",
+      "ref_path": "static/samples/ohrc_reference.png",
+      "sun_az_src": 45.0,
+      "sun_az_ref": 150.0,
+      "model": "homography",
+      "description": "High-resolution optical lunar surface with severe shadow inversion caused by 105 degree difference in solar illumination azimuth."
+    },
+    "success": true,
+    "elapsed_seconds": 0.656,
+    "sensor_type": "OHRC",
+    "metrics": {
+      "total_candidates": 160,
+      "inlier_count": 27,
+      "inlier_ratio_pct": 16.88,
+      "rmse": 1.5225,
+      "mean_matching_error": 1.4103,
+      "median_error": 1.396,
+      "max_error": 2.967,
+      "coverage_pct": 29.69,
+      "uniformity_score": 0.689,
+      "subpixel_accuracy_pct": 7.41,
+      "quality_grade": "Good (Valid Geometric Match)"
+    },
+    "quality_report_text": "=======================================================\n   LUNAMATCH - CHANDRAYAAN-2 REGISTRATION QUALITY REPORT\n   Sensor Modality: OHRC\n=======================================================\nTotal candidate matches : 160\nRANSAC inliers          : 27\nInlier ratio             : 16.88%\nRMSE                     : 1.5225 pixels\nMean matching error      : 1.4103 pixels\nCoverage                 : 29.69%\nSub-pixel accuracy (<0.5): 7.41%\nSpatial Uniformity Score : 0.689 / 1.000\nRegistration Quality     : Good (Valid Geometric Match)\n=======================================================",
+    "stage_logs": [
+      {
+        "stage": 1,
+        "name": "Image Preprocessing",
+        "detail": "Source dimensions: 600x600 (OHRC), Reference: 600x600. Denoising & radiometric normalization."
+      },
+      {
+        "stage": 2,
+        "name": "Illumination & Sun-Angle Compensation",
+        "detail": "Constructing gradient magnitude and topographic ridge invariant representations (Src Az: 45.0\u00b0, Ref Az: 150.0\u00b0)."
+      },
+      {
+        "stage": 3,
+        "name": "Multi-Scale Pyramid Representation",
+        "detail": "Building 3-level Gaussian & Laplacian multi-resolution image pyramids (1x, 0.5x, 0.25x)."
+      },
+      {
+        "stage": 4,
+        "name": "Sensor-Invariant Feature Extraction",
+        "detail": "Detecting scale-space extrema & mapping descriptors to RootSIFT Hellinger kernel space."
+      },
+      {
+        "stage": 5,
+        "name": "Feature Correspondence & Mutual Verification",
+        "detail": "Extracted 6605 source and 5711 reference keypoints. Applying Lowe's ratio test and bilateral cross-check."
+      },
+      {
+        "stage": 6,
+        "name": "Geometric Verification (RANSAC)",
+        "detail": "Estimating HOMOGRAPHY transformation across 160 candidate correspondences with reprojection threshold 2.5 px."
+      },
+      {
+        "stage": 7,
+        "name": "Sub-Pixel Refinement",
+        "detail": "Refining 30 inlier correspondences to fractional pixel precision using local patch NCC quadratic peak estimation and least-squares model fine-tuning."
+      },
+      {
+        "stage": 8,
+        "name": "Uniform Spatial Distribution",
+        "detail": "Binning into 8x8 grid to eliminate crater clustering and maximize lunar surface coverage."
+      },
+      {
+        "stage": 9,
+        "name": "Registration & Visual Outputs",
+        "detail": "Generating warped registered image, 50/50 blend, checkerboard overlay, and residual difference map."
+      },
+      {
+        "stage": 10,
+        "name": "Evaluation Metrics & Quality Report",
+        "detail": "Computing RMSE, inlier ratio, spatial coverage, and sub-pixel accuracy scores."
+      }
+    ],
+    "matrix": [
+      [
+        0.9833183088760281,
+        -0.06407475163928113,
+        12.36027174849284
+      ],
+      [
+        0.07042134915784984,
+        0.9944489564698594,
+        -9.182674431518667
+      ],
+      [
+        -3.0769325650828966e-06,
+        2.7815265586849707e-05,
+        1.0
+      ]
+    ],
+    "matches_summary": {
+      "total_candidates": 160,
+      "ransac_inliers": 30,
+      "uniform_selected": 27,
+      "coverage_pct": 29.69,
+      "uniformity_score": 0.689
+    },
+    "output_files": {
+      "warped": "static/preset_outputs/warped_1790947886020.png",
+      "blend": "static/preset_outputs/blend_1790947886020.png",
+      "checker": "static/preset_outputs/checker_1790947886020.png",
+      "diff": "static/preset_outputs/diff_1790947886020.png",
+      "correspondence": "static/preset_outputs/correspondence_1790947886020.png",
+      "grid": "static/preset_outputs/grid_1790947886020.png"
+    },
+    "match_points": [
+      {
+        "id": 1,
+        "source_x": 183.71,
+        "source_y": 15.57,
+        "reference_x": 191.42,
+        "reference_y": 19.91,
+        "confidence": 0.563,
+        "reprojection_error": 0.908,
+        "is_subpixel": true
+      },
+      {
+        "id": 2,
+        "source_x": 228.48,
+        "source_y": 72.02,
+        "reference_x": 232.79,
+        "reference_y": 77.18,
+        "confidence": 0.564,
+        "reprojection_error": 1.418,
+        "is_subpixel": true
+      },
+      {
+        "id": 3,
+        "source_x": 237.03,
+        "source_y": 44.26,
+        "reference_x": 241.67,
+        "reference_y": 52.31,
+        "confidence": 0.473,
+        "reprojection_error": 1.146,
+        "is_subpixel": true
+      },
+      {
+        "id": 4,
+        "source_x": 419.55,
+        "source_y": 23.48,
+        "reference_x": 423.85,
+        "reference_y": 45.19,
+        "confidence": 0.51,
+        "reprojection_error": 1.46,
+        "is_subpixel": true
+      },
+      {
+        "id": 5,
+        "source_x": 580.5,
+        "source_y": 44.74,
+        "reference_x": 583.36,
+        "reference_y": 75.08,
+        "confidence": 0.516,
+        "reprojection_error": 2.967,
+        "is_subpixel": true
+      },
+      {
+        "id": 6,
+        "source_x": 582.87,
+        "source_y": 74.38,
+        "reference_x": 579.55,
+        "reference_y": 106.72,
+        "confidence": 0.474,
+        "reprojection_error": 1.381,
+        "is_subpixel": true
+      },
+      {
+        "id": 7,
+        "source_x": 24.06,
+        "source_y": 193.62,
+        "reference_x": 22.81,
+        "reference_y": 185.48,
+        "confidence": 0.48,
+        "reprojection_error": 1.556,
+        "is_subpixel": true
+      },
+      {
+        "id": 8,
+        "source_x": 310.1,
+        "source_y": 208.63,
+        "reference_x": 302.77,
+        "reference_y": 218.58,
+        "confidence": 0.488,
+        "reprojection_error": 0.579,
+        "is_subpixel": false
+      },
+      {
+        "id": 9,
+        "source_x": 229.05,
+        "source_y": 281.84,
+        "reference_x": 218.89,
+        "reference_y": 283.69,
+        "confidence": 0.509,
+        "reprojection_error": 1.755,
+        "is_subpixel": true
+      },
+      {
+        "id": 10,
+        "source_x": 251.47,
+        "source_y": 289.85,
+        "reference_x": 239.71,
+        "reference_y": 293.28,
+        "confidence": 0.462,
+        "reprojection_error": 1.396,
+        "is_subpixel": false
+      },
+      {
+        "id": 11,
+        "source_x": 422.94,
+        "source_y": 254.64,
+        "reference_x": 411.64,
+        "reference_y": 271.35,
+        "confidence": 0.575,
+        "reprojection_error": 2.267,
+        "is_subpixel": true
+      },
+      {
+        "id": 12,
+        "source_x": 449.06,
+        "source_y": 285.22,
+        "reference_x": 430.71,
+        "reference_y": 305.05,
+        "confidence": 0.532,
+        "reprojection_error": 2.318,
+        "is_subpixel": false
+      },
+      {
+        "id": 13,
+        "source_x": 441.91,
+        "source_y": 292.52,
+        "reference_x": 425.78,
+        "reference_y": 309.43,
+        "confidence": 0.479,
+        "reprojection_error": 1.393,
+        "is_subpixel": false
+      },
+      {
+        "id": 14,
+        "source_x": 465.42,
+        "source_y": 284.53,
+        "reference_x": 448.81,
+        "reference_y": 305.61,
+        "confidence": 0.449,
+        "reprojection_error": 1.043,
+        "is_subpixel": false
+      },
+      {
+        "id": 15,
+        "source_x": 560.19,
+        "source_y": 234.84,
+        "reference_x": 545.13,
+        "reference_y": 262.44,
+        "confidence": 0.53,
+        "reprojection_error": 0.417,
+        "is_subpixel": true
+      },
+      {
+        "id": 16,
+        "source_x": 85.08,
+        "source_y": 353.34,
+        "reference_x": 71.98,
+        "reference_y": 343.39,
+        "confidence": 0.564,
+        "reprojection_error": 1.656,
+        "is_subpixel": true
+      },
+      {
+        "id": 17,
+        "source_x": 378.14,
+        "source_y": 327.86,
+        "reference_x": 359.51,
+        "reference_y": 340.03,
+        "confidence": 0.571,
+        "reprojection_error": 1.099,
+        "is_subpixel": true
+      },
+      {
+        "id": 18,
+        "source_x": 497.7,
+        "source_y": 484.61,
+        "reference_x": 464.64,
+        "reference_y": 500.6,
+        "confidence": 0.487,
+        "reprojection_error": 1.295,
+        "is_subpixel": false
+      },
+      {
+        "id": 19,
+        "source_x": 147.33,
+        "source_y": 572.06,
+        "reference_x": 119.8,
+        "reference_y": 561.96,
+        "confidence": 0.459,
+        "reprojection_error": 1.197,
+        "is_subpixel": false
+      },
+      {
+        "id": 20,
+        "source_x": 211.03,
+        "source_y": 537.98,
+        "reference_x": 182.44,
+        "reference_y": 534.77,
+        "confidence": 0.557,
+        "reprojection_error": 1.762,
+        "is_subpixel": true
+      },
+      {
+        "id": 21,
+        "source_x": 154.29,
+        "source_y": 568.69,
+        "reference_x": 126.42,
+        "reference_y": 558.12,
+        "confidence": 0.536,
+        "reprojection_error": 0.883,
+        "is_subpixel": false
+      },
+      {
+        "id": 22,
+        "source_x": 242.82,
+        "source_y": 556.75,
+        "reference_x": 213.26,
+        "reference_y": 552.07,
+        "confidence": 0.637,
+        "reprojection_error": 1.641,
+        "is_subpixel": true
+      },
+      {
+        "id": 23,
+        "source_x": 319.04,
+        "source_y": 542.69,
+        "reference_x": 289.34,
+        "reference_y": 545.0,
+        "confidence": 0.561,
+        "reprojection_error": 2.106,
+        "is_subpixel": true
+      },
+      {
+        "id": 24,
+        "source_x": 327.67,
+        "source_y": 588.24,
+        "reference_x": 290.77,
+        "reference_y": 590.21,
+        "confidence": 0.449,
+        "reprojection_error": 1.662,
+        "is_subpixel": false
+      },
+      {
+        "id": 25,
+        "source_x": 408.23,
+        "source_y": 544.18,
+        "reference_x": 374.63,
+        "reference_y": 553.03,
+        "confidence": 0.461,
+        "reprojection_error": 0.906,
+        "is_subpixel": false
+      },
+      {
+        "id": 26,
+        "source_x": 459.3,
+        "source_y": 567.92,
+        "reference_x": 421.4,
+        "reference_y": 579.9,
+        "confidence": 0.511,
+        "reprojection_error": 0.34,
+        "is_subpixel": false
+      },
+      {
+        "id": 27,
+        "source_x": 451.62,
+        "source_y": 526.13,
+        "reference_x": 416.2,
+        "reference_y": 539.84,
+        "confidence": 0.457,
+        "reprojection_error": 1.526,
+        "is_subpixel": false
+      }
+    ]
+  },
+  "tmc": {
+    "metadata": {
+      "id": "tmc",
+      "name": "Chandrayaan-2 TMC-2 vs Reference Base",
+      "category": "Scale & Viewpoint Invariance (1.35x zoom, slant, rotation)",
+      "sensor": "TMC",
+      "src_path": "static/samples/tmc_source.png",
+      "ref_path": "static/samples/tmc_reference.png",
+      "sun_az_src": null,
+      "sun_az_ref": null,
+      "model": "homography",
+      "description": "Terrain Mapping Camera pair with 1.35x zoom scale difference, 12 degree orbital tilt, and perspective distortion."
+    },
+    "success": true,
+    "elapsed_seconds": 0.557,
+    "sensor_type": "TMC",
+    "metrics": {
+      "total_candidates": 536,
+      "inlier_count": 182,
+      "inlier_ratio_pct": 33.96,
+      "rmse": 1.2682,
+      "mean_matching_error": 1.1088,
+      "median_error": 1.0145,
+      "max_error": 2.777,
+      "coverage_pct": 93.75,
+      "uniformity_score": 0.962,
+      "subpixel_accuracy_pct": 16.48,
+      "quality_grade": "Good (Valid Geometric Match)"
+    },
+    "quality_report_text": "=======================================================\n   LUNAMATCH - CHANDRAYAAN-2 REGISTRATION QUALITY REPORT\n   Sensor Modality: TMC\n=======================================================\nTotal candidate matches : 536\nRANSAC inliers          : 182\nInlier ratio             : 33.96%\nRMSE                     : 1.2682 pixels\nMean matching error      : 1.1088 pixels\nCoverage                 : 93.75%\nSub-pixel accuracy (<0.5): 16.48%\nSpatial Uniformity Score : 0.962 / 1.000\nRegistration Quality     : Good (Valid Geometric Match)\n=======================================================",
+    "stage_logs": [
+      {
+        "stage": 1,
+        "name": "Image Preprocessing",
+        "detail": "Source dimensions: 600x600 (TMC), Reference: 640x640. Denoising & radiometric normalization."
+      },
+      {
+        "stage": 2,
+        "name": "Illumination & Sun-Angle Compensation",
+        "detail": "Constructing gradient magnitude and topographic ridge invariant representations (Src Az: None\u00b0, Ref Az: None\u00b0)."
+      },
+      {
+        "stage": 3,
+        "name": "Multi-Scale Pyramid Representation",
+        "detail": "Building 3-level Gaussian & Laplacian multi-resolution image pyramids (1x, 0.5x, 0.25x)."
+      },
+      {
+        "stage": 4,
+        "name": "Sensor-Invariant Feature Extraction",
+        "detail": "Detecting scale-space extrema & mapping descriptors to RootSIFT Hellinger kernel space."
+      },
+      {
+        "stage": 5,
+        "name": "Feature Correspondence & Mutual Verification",
+        "detail": "Extracted 5924 source and 6150 reference keypoints. Applying Lowe's ratio test and bilateral cross-check."
+      },
+      {
+        "stage": 6,
+        "name": "Geometric Verification (RANSAC)",
+        "detail": "Estimating HOMOGRAPHY transformation across 536 candidate correspondences with reprojection threshold 2.5 px."
+      },
+      {
+        "stage": 7,
+        "name": "Sub-Pixel Refinement",
+        "detail": "Refining 344 inlier correspondences to fractional pixel precision using local patch NCC quadratic peak estimation and least-squares model fine-tuning."
+      },
+      {
+        "stage": 8,
+        "name": "Uniform Spatial Distribution",
+        "detail": "Binning into 8x8 grid to eliminate crater clustering and maximize lunar surface coverage."
+      },
+      {
+        "stage": 9,
+        "name": "Registration & Visual Outputs",
+        "detail": "Generating warped registered image, 50/50 blend, checkerboard overlay, and residual difference map."
+      },
+      {
+        "stage": 10,
+        "name": "Evaluation Metrics & Quality Report",
+        "detail": "Computing RMSE, inlier ratio, spatial coverage, and sub-pixel accuracy scores."
+      }
+    ],
+    "matrix": [
+      [
+        0.9472577892754839,
+        -0.00908029176772285,
+        21.807114879908752
+      ],
+      [
+        -0.050210963070580004,
+        0.9984418144479653,
+        16.499452573903064
+      ],
+      [
+        6.153386907593938e-05,
+        -7.997361350715807e-06,
+        1.0
+      ]
+    ],
+    "matches_summary": {
+      "total_candidates": 536,
+      "ransac_inliers": 344,
+      "uniform_selected": 182,
+      "coverage_pct": 93.75,
+      "uniformity_score": 0.962
+    },
+    "output_files": {
+      "warped": "static/preset_outputs/warped_1790947886596.png",
+      "blend": "static/preset_outputs/blend_1790947886596.png",
+      "checker": "static/preset_outputs/checker_1790947886596.png",
+      "diff": "static/preset_outputs/diff_1790947886596.png",
+      "correspondence": "static/preset_outputs/correspondence_1790947886596.png",
+      "grid": "static/preset_outputs/grid_1790947886596.png"
+    },
+    "match_points": [
+      {
+        "id": 1,
+        "source_x": 142.7,
+        "source_y": 25.57,
+        "reference_x": 155.12,
+        "reference_y": 34.62,
+        "confidence": 0.671,
+        "reprojection_error": 0.3,
+        "is_subpixel": true
+      },
+      {
+        "id": 2,
+        "source_x": 93.03,
+        "source_y": 71.95,
+        "reference_x": 107.53,
+        "reference_y": 83.55,
+        "confidence": 0.641,
+        "reprojection_error": 1.228,
+        "is_subpixel": true
+      },
+      {
+        "id": 3,
+        "source_x": 126.85,
+        "source_y": 30.65,
+        "reference_x": 140.41,
+        "reference_y": 40.84,
+        "confidence": 0.61,
+        "reprojection_error": 0.466,
+        "is_subpixel": true
+      },
+      {
+        "id": 4,
+        "source_x": 147.99,
+        "source_y": 45.04,
+        "reference_x": 159.99,
+        "reference_y": 53.28,
+        "confidence": 0.608,
+        "reprojection_error": 0.348,
+        "is_subpixel": true
+      },
+      {
+        "id": 5,
+        "source_x": 197.87,
+        "source_y": 70.46,
+        "reference_x": 206.24,
+        "reference_y": 75.32,
+        "confidence": 0.553,
+        "reprojection_error": 0.712,
+        "is_subpixel": true
+      },
+      {
+        "id": 6,
+        "source_x": 151.58,
+        "source_y": 56.0,
+        "reference_x": 164.63,
+        "reference_y": 63.94,
+        "confidence": 0.53,
+        "reprojection_error": 1.232,
+        "is_subpixel": true
+      },
+      {
+        "id": 7,
+        "source_x": 156.24,
+        "source_y": 40.37,
+        "reference_x": 168.19,
+        "reference_y": 47.9,
+        "confidence": 0.483,
+        "reprojection_error": 0.685,
+        "is_subpixel": true
+      },
+      {
+        "id": 8,
+        "source_x": 159.43,
+        "source_y": 24.14,
+        "reference_x": 169.81,
+        "reference_y": 31.92,
+        "confidence": 0.443,
+        "reprojection_error": 1.212,
+        "is_subpixel": false
+      },
+      {
+        "id": 9,
+        "source_x": 260.72,
+        "source_y": 43.28,
+        "reference_x": 265.91,
+        "reference_y": 45.38,
+        "confidence": 0.641,
+        "reprojection_error": 1.754,
+        "is_subpixel": true
+      },
+      {
+        "id": 10,
+        "source_x": 296.65,
+        "source_y": 15.12,
+        "reference_x": 296.76,
+        "reference_y": 14.7,
+        "confidence": 0.639,
+        "reprojection_error": 1.782,
+        "is_subpixel": true
+      },
+      {
+        "id": 11,
+        "source_x": 262.54,
+        "source_y": 18.14,
+        "reference_x": 266.11,
+        "reference_y": 21.11,
+        "confidence": 0.58,
+        "reprojection_error": 0.039,
+        "is_subpixel": true
+      },
+      {
+        "id": 12,
+        "source_x": 252.78,
+        "source_y": 27.63,
+        "reference_x": 256.54,
+        "reference_y": 32.63,
+        "confidence": 0.524,
+        "reprojection_error": 1.788,
+        "is_subpixel": true
+      },
+      {
+        "id": 13,
+        "source_x": 333.93,
+        "source_y": 50.66,
+        "reference_x": 331.46,
+        "reference_y": 49.95,
+        "confidence": 0.621,
+        "reprojection_error": 0.781,
+        "is_subpixel": true
+      },
+      {
+        "id": 14,
+        "source_x": 353.08,
+        "source_y": 54.78,
+        "reference_x": 348.33,
+        "reference_y": 52.2,
+        "confidence": 0.608,
+        "reprojection_error": 0.153,
+        "is_subpixel": true
+      },
+      {
+        "id": 15,
+        "source_x": 318.99,
+        "source_y": 46.67,
+        "reference_x": 318.0,
+        "reference_y": 47.03,
+        "confidence": 0.592,
+        "reprojection_error": 1.011,
+        "is_subpixel": true
+      },
+      {
+        "id": 16,
+        "source_x": 313.98,
+        "source_y": 13.99,
+        "reference_x": 312.9,
+        "reference_y": 15.27,
+        "confidence": 0.576,
+        "reprojection_error": 0.865,
+        "is_subpixel": false
+      },
+      {
+        "id": 17,
+        "source_x": 385.92,
+        "source_y": 57.74,
+        "reference_x": 377.02,
+        "reference_y": 53.46,
+        "confidence": 0.661,
+        "reprojection_error": 1.028,
+        "is_subpixel": true
+      },
+      {
+        "id": 18,
+        "source_x": 405.69,
+        "source_y": 50.79,
+        "reference_x": 398.11,
+        "reference_y": 44.79,
+        "confidence": 0.61,
+        "reprojection_error": 2.382,
+        "is_subpixel": true
+      },
+      {
+        "id": 19,
+        "source_x": 393.08,
+        "source_y": 66.65,
+        "reference_x": 384.13,
+        "reference_y": 62.64,
+        "confidence": 0.577,
+        "reprojection_error": 0.858,
+        "is_subpixel": true
+      },
+      {
+        "id": 20,
+        "source_x": 381.75,
+        "source_y": 70.11,
+        "reference_x": 373.1,
+        "reference_y": 64.68,
+        "confidence": 0.489,
+        "reprojection_error": 1.59,
+        "is_subpixel": true
+      },
+      {
+        "id": 21,
+        "source_x": 450.76,
+        "source_y": 38.36,
+        "reference_x": 437.03,
+        "reference_y": 31.74,
+        "confidence": 0.679,
+        "reprojection_error": 0.706,
+        "is_subpixel": true
+      },
+      {
+        "id": 22,
+        "source_x": 496.92,
+        "source_y": 43.38,
+        "reference_x": 477.21,
+        "reference_y": 34.95,
+        "confidence": 0.647,
+        "reprojection_error": 1.209,
+        "is_subpixel": false
+      },
+      {
+        "id": 23,
+        "source_x": 518.34,
+        "source_y": 40.38,
+        "reference_x": 495.96,
+        "reference_y": 29.46,
+        "confidence": 0.604,
+        "reprojection_error": 0.887,
+        "is_subpixel": false
+      },
+      {
+        "id": 24,
+        "source_x": 511.02,
+        "source_y": 65.0,
+        "reference_x": 490.59,
+        "reference_y": 54.21,
+        "confidence": 0.591,
+        "reprojection_error": 0.484,
+        "is_subpixel": true
+      },
+      {
+        "id": 25,
+        "source_x": 554.34,
+        "source_y": 47.42,
+        "reference_x": 528.51,
+        "reference_y": 34.34,
+        "confidence": 0.553,
+        "reprojection_error": 0.515,
+        "is_subpixel": true
+      },
+      {
+        "id": 26,
+        "source_x": 537.89,
+        "source_y": 42.62,
+        "reference_x": 514.23,
+        "reference_y": 31.27,
+        "confidence": 0.457,
+        "reprojection_error": 0.274,
+        "is_subpixel": true
+      },
+      {
+        "id": 27,
+        "source_x": 20.29,
+        "source_y": 137.81,
+        "reference_x": 39.22,
+        "reference_y": 153.02,
+        "confidence": 0.497,
+        "reprojection_error": 0.551,
+        "is_subpixel": true
+      },
+      {
+        "id": 28,
+        "source_x": 94.99,
+        "source_y": 76.14,
+        "reference_x": 110.06,
+        "reference_y": 86.67,
+        "confidence": 0.613,
+        "reprojection_error": 0.774,
+        "is_subpixel": true
+      },
+      {
+        "id": 29,
+        "source_x": 132.66,
+        "source_y": 99.58,
+        "reference_x": 146.11,
+        "reference_y": 108.61,
+        "confidence": 0.544,
+        "reprojection_error": 0.633,
+        "is_subpixel": true
+      },
+      {
+        "id": 30,
+        "source_x": 116.67,
+        "source_y": 127.67,
+        "reference_x": 131.59,
+        "reference_y": 136.93,
+        "confidence": 0.456,
+        "reprojection_error": 1.274,
+        "is_subpixel": false
+      },
+      {
+        "id": 31,
+        "source_x": 105.83,
+        "source_y": 82.51,
+        "reference_x": 121.85,
+        "reference_y": 94.3,
+        "confidence": 0.449,
+        "reprojection_error": 1.787,
+        "is_subpixel": true
+      },
+      {
+        "id": 32,
+        "source_x": 185.46,
+        "source_y": 102.28,
+        "reference_x": 193.27,
+        "reference_y": 107.53,
+        "confidence": 0.595,
+        "reprojection_error": 1.38,
+        "is_subpixel": true
+      },
+      {
+        "id": 33,
+        "source_x": 167.44,
+        "source_y": 85.86,
+        "reference_x": 176.38,
+        "reference_y": 93.78,
+        "confidence": 0.586,
+        "reprojection_error": 1.766,
+        "is_subpixel": true
+      },
+      {
+        "id": 34,
+        "source_x": 165.89,
+        "source_y": 102.3,
+        "reference_x": 175.77,
+        "reference_y": 109.1,
+        "confidence": 0.521,
+        "reprojection_error": 0.621,
+        "is_subpixel": false
+      },
+      {
+        "id": 35,
+        "source_x": 250.01,
+        "source_y": 128.94,
+        "reference_x": 253.19,
+        "reference_y": 130.86,
+        "confidence": 0.494,
+        "reprojection_error": 0.629,
+        "is_subpixel": false
+      },
+      {
+        "id": 36,
+        "source_x": 374.14,
+        "source_y": 112.16,
+        "reference_x": 367.51,
+        "reference_y": 107.25,
+        "confidence": 0.676,
+        "reprojection_error": 0.442,
+        "is_subpixel": true
+      },
+      {
+        "id": 37,
+        "source_x": 366.69,
+        "source_y": 77.28,
+        "reference_x": 361.34,
+        "reference_y": 73.3,
+        "confidence": 0.671,
+        "reprojection_error": 0.863,
+        "is_subpixel": true
+      },
+      {
+        "id": 38,
+        "source_x": 361.22,
+        "source_y": 127.13,
+        "reference_x": 356.66,
+        "reference_y": 121.92,
+        "confidence": 0.643,
+        "reprojection_error": 1.576,
+        "is_subpixel": false
+      },
+      {
+        "id": 39,
+        "source_x": 366.88,
+        "source_y": 143.72,
+        "reference_x": 362.6,
+        "reference_y": 137.22,
+        "confidence": 0.561,
+        "reprojection_error": 2.674,
+        "is_subpixel": true
+      },
+      {
+        "id": 40,
+        "source_x": 376.28,
+        "source_y": 111.3,
+        "reference_x": 369.17,
+        "reference_y": 106.34,
+        "confidence": 0.664,
+        "reprojection_error": 0.157,
+        "is_subpixel": true
+      },
+      {
+        "id": 41,
+        "source_x": 377.3,
+        "source_y": 99.75,
+        "reference_x": 368.89,
+        "reference_y": 94.96,
+        "confidence": 0.633,
+        "reprojection_error": 1.118,
+        "is_subpixel": false
+      },
+      {
+        "id": 42,
+        "source_x": 430.67,
+        "source_y": 105.1,
+        "reference_x": 417.69,
+        "reference_y": 97.14,
+        "confidence": 0.583,
+        "reprojection_error": 0.427,
+        "is_subpixel": false
+      },
+      {
+        "id": 43,
+        "source_x": 458.77,
+        "source_y": 89.01,
+        "reference_x": 444.26,
+        "reference_y": 80.35,
+        "confidence": 0.642,
+        "reprojection_error": 0.915,
+        "is_subpixel": true
+      },
+      {
+        "id": 44,
+        "source_x": 478.02,
+        "source_y": 126.79,
+        "reference_x": 460.12,
+        "reference_y": 116.57,
+        "confidence": 0.64,
+        "reprojection_error": 0.814,
+        "is_subpixel": true
+      },
+      {
+        "id": 45,
+        "source_x": 517.77,
+        "source_y": 126.8,
+        "reference_x": 494.33,
+        "reference_y": 113.46,
+        "confidence": 0.638,
+        "reprojection_error": 1.5,
+        "is_subpixel": false
+      },
+      {
+        "id": 46,
+        "source_x": 505.75,
+        "source_y": 76.14,
+        "reference_x": 486.45,
+        "reference_y": 64.18,
+        "confidence": 0.613,
+        "reprojection_error": 1.436,
+        "is_subpixel": true
+      },
+      {
+        "id": 47,
+        "source_x": 526.76,
+        "source_y": 120.14,
+        "reference_x": 503.41,
+        "reference_y": 106.31,
+        "confidence": 0.726,
+        "reprojection_error": 0.552,
+        "is_subpixel": true
+      },
+      {
+        "id": 48,
+        "source_x": 574.89,
+        "source_y": 113.0,
+        "reference_x": 547.75,
+        "reference_y": 96.83,
+        "confidence": 0.615,
+        "reprojection_error": 1.27,
+        "is_subpixel": true
+      },
+      {
+        "id": 49,
+        "source_x": 580.09,
+        "source_y": 122.2,
+        "reference_x": 551.62,
+        "reference_y": 105.26,
+        "confidence": 0.615,
+        "reprojection_error": 0.719,
+        "is_subpixel": true
+      },
+      {
+        "id": 50,
+        "source_x": 566.62,
+        "source_y": 122.24,
+        "reference_x": 539.47,
+        "reference_y": 105.8,
+        "confidence": 0.593,
+        "reprojection_error": 0.756,
+        "is_subpixel": false
+      },
+      {
+        "id": 51,
+        "source_x": 39.94,
+        "source_y": 183.69,
+        "reference_x": 58.95,
+        "reference_y": 197.48,
+        "confidence": 0.494,
+        "reprojection_error": 1.058,
+        "is_subpixel": true
+      },
+      {
+        "id": 52,
+        "source_x": 22.78,
+        "source_y": 167.6,
+        "reference_x": 43.27,
+        "reference_y": 183.28,
+        "confidence": 0.455,
+        "reprojection_error": 1.53,
+        "is_subpixel": true
+      },
+      {
+        "id": 53,
+        "source_x": 131.83,
+        "source_y": 223.8,
+        "reference_x": 142.44,
+        "reference_y": 233.38,
+        "confidence": 0.533,
+        "reprojection_error": 1.998,
+        "is_subpixel": false
+      },
+      {
+        "id": 54,
+        "source_x": 86.24,
+        "source_y": 186.18,
+        "reference_x": 102.68,
+        "reference_y": 196.66,
+        "confidence": 0.516,
+        "reprojection_error": 1.415,
+        "is_subpixel": false
+      },
+      {
+        "id": 55,
+        "source_x": 113.71,
+        "source_y": 202.18,
+        "reference_x": 127.06,
+        "reference_y": 210.54,
+        "confidence": 0.468,
+        "reprojection_error": 0.979,
+        "is_subpixel": false
+      },
+      {
+        "id": 56,
+        "source_x": 181.38,
+        "source_y": 193.11,
+        "reference_x": 189.85,
+        "reference_y": 198.03,
+        "confidence": 0.543,
+        "reprojection_error": 0.325,
+        "is_subpixel": false
+      },
+      {
+        "id": 57,
+        "source_x": 197.17,
+        "source_y": 210.46,
+        "reference_x": 206.18,
+        "reference_y": 213.79,
+        "confidence": 0.54,
+        "reprojection_error": 1.793,
+        "is_subpixel": false
+      },
+      {
+        "id": 58,
+        "source_x": 181.69,
+        "source_y": 181.5,
+        "reference_x": 191.41,
+        "reference_y": 186.01,
+        "confidence": 0.529,
+        "reprojection_error": 1.257,
+        "is_subpixel": false
+      },
+      {
+        "id": 59,
+        "source_x": 193.96,
+        "source_y": 195.61,
+        "reference_x": 202.88,
+        "reference_y": 199.97,
+        "confidence": 0.511,
+        "reprojection_error": 1.211,
+        "is_subpixel": true
+      },
+      {
+        "id": 60,
+        "source_x": 247.04,
+        "source_y": 212.58,
+        "reference_x": 248.93,
+        "reference_y": 213.23,
+        "confidence": 0.542,
+        "reprojection_error": 1.592,
+        "is_subpixel": true
+      },
+      {
+        "id": 61,
+        "source_x": 255.56,
+        "source_y": 157.76,
+        "reference_x": 258.17,
+        "reference_y": 158.91,
+        "confidence": 0.529,
+        "reprojection_error": 0.544,
+        "is_subpixel": true
+      },
+      {
+        "id": 62,
+        "source_x": 240.72,
+        "source_y": 200.92,
+        "reference_x": 245.33,
+        "reference_y": 202.11,
+        "confidence": 0.5,
+        "reprojection_error": 0.604,
+        "is_subpixel": true
+      },
+      {
+        "id": 63,
+        "source_x": 299.59,
+        "source_y": 151.63,
+        "reference_x": 299.08,
+        "reference_y": 150.59,
+        "confidence": 0.443,
+        "reprojection_error": 0.328,
+        "is_subpixel": false
+      },
+      {
+        "id": 64,
+        "source_x": 365.97,
+        "source_y": 204.75,
+        "reference_x": 359.31,
+        "reference_y": 197.97,
+        "confidence": 0.493,
+        "reprojection_error": 0.482,
+        "is_subpixel": false
+      },
+      {
+        "id": 65,
+        "source_x": 348.13,
+        "source_y": 206.74,
+        "reference_x": 342.34,
+        "reference_y": 202.34,
+        "confidence": 0.486,
+        "reprojection_error": 1.058,
+        "is_subpixel": false
+      },
+      {
+        "id": 66,
+        "source_x": 364.04,
+        "source_y": 223.72,
+        "reference_x": 359.08,
+        "reference_y": 216.39,
+        "confidence": 0.483,
+        "reprojection_error": 1.967,
+        "is_subpixel": true
+      },
+      {
+        "id": 67,
+        "source_x": 414.4,
+        "source_y": 203.01,
+        "reference_x": 402.47,
+        "reference_y": 194.16,
+        "confidence": 0.645,
+        "reprojection_error": 0.579,
+        "is_subpixel": true
+      },
+      {
+        "id": 68,
+        "source_x": 401.75,
+        "source_y": 163.55,
+        "reference_x": 390.25,
+        "reference_y": 155.83,
+        "confidence": 0.578,
+        "reprojection_error": 1.468,
+        "is_subpixel": false
+      },
+      {
+        "id": 69,
+        "source_x": 426.45,
+        "source_y": 222.86,
+        "reference_x": 411.13,
+        "reference_y": 212.86,
+        "confidence": 0.578,
+        "reprojection_error": 2.536,
+        "is_subpixel": true
+      },
+      {
+        "id": 70,
+        "source_x": 389.55,
+        "source_y": 158.33,
+        "reference_x": 381.8,
+        "reference_y": 150.68,
+        "confidence": 0.573,
+        "reprojection_error": 1.4,
+        "is_subpixel": true
+      },
+      {
+        "id": 71,
+        "source_x": 521.06,
+        "source_y": 211.44,
+        "reference_x": 497.82,
+        "reference_y": 195.55,
+        "confidence": 0.793,
+        "reprojection_error": 0.512,
+        "is_subpixel": true
+      },
+      {
+        "id": 72,
+        "source_x": 496.47,
+        "source_y": 220.4,
+        "reference_x": 476.11,
+        "reference_y": 205.44,
+        "confidence": 0.7,
+        "reprojection_error": 0.377,
+        "is_subpixel": false
+      },
+      {
+        "id": 73,
+        "source_x": 509.17,
+        "source_y": 206.81,
+        "reference_x": 487.13,
+        "reference_y": 191.88,
+        "confidence": 0.629,
+        "reprojection_error": 0.656,
+        "is_subpixel": false
+      },
+      {
+        "id": 74,
+        "source_x": 469.82,
+        "source_y": 223.83,
+        "reference_x": 455.0,
+        "reference_y": 211.88,
+        "confidence": 0.566,
+        "reprojection_error": 2.736,
+        "is_subpixel": true
+      },
+      {
+        "id": 75,
+        "source_x": 528.27,
+        "source_y": 208.2,
+        "reference_x": 504.98,
+        "reference_y": 191.87,
+        "confidence": 0.683,
+        "reprojection_error": 0.231,
+        "is_subpixel": true
+      },
+      {
+        "id": 76,
+        "source_x": 544.04,
+        "source_y": 215.52,
+        "reference_x": 518.95,
+        "reference_y": 198.06,
+        "confidence": 0.588,
+        "reprojection_error": 0.226,
+        "is_subpixel": true
+      },
+      {
+        "id": 77,
+        "source_x": 557.44,
+        "source_y": 192.4,
+        "reference_x": 531.88,
+        "reference_y": 173.57,
+        "confidence": 0.52,
+        "reprojection_error": 1.756,
+        "is_subpixel": false
+      },
+      {
+        "id": 78,
+        "source_x": 531.27,
+        "source_y": 221.38,
+        "reference_x": 508.69,
+        "reference_y": 204.59,
+        "confidence": 0.478,
+        "reprojection_error": 1.332,
+        "is_subpixel": false
+      },
+      {
+        "id": 79,
+        "source_x": 22.05,
+        "source_y": 258.66,
+        "reference_x": 41.27,
+        "reference_y": 273.36,
+        "confidence": 0.489,
+        "reprojection_error": 1.018,
+        "is_subpixel": false
+      },
+      {
+        "id": 80,
+        "source_x": 104.21,
+        "source_y": 292.28,
+        "reference_x": 117.56,
+        "reference_y": 301.21,
+        "confidence": 0.66,
+        "reprojection_error": 0.674,
+        "is_subpixel": true
+      },
+      {
+        "id": 81,
+        "source_x": 100.56,
+        "source_y": 280.51,
+        "reference_x": 113.52,
+        "reference_y": 291.16,
+        "confidence": 0.619,
+        "reprojection_error": 0.954,
+        "is_subpixel": true
+      },
+      {
+        "id": 82,
+        "source_x": 113.6,
+        "source_y": 257.21,
+        "reference_x": 125.74,
+        "reference_y": 265.39,
+        "confidence": 0.603,
+        "reprojection_error": 1.151,
+        "is_subpixel": true
+      },
+      {
+        "id": 83,
+        "source_x": 126.57,
+        "source_y": 273.31,
+        "reference_x": 138.57,
+        "reference_y": 280.84,
+        "confidence": 0.598,
+        "reprojection_error": 0.624,
+        "is_subpixel": false
+      },
+      {
+        "id": 84,
+        "source_x": 229.91,
+        "source_y": 241.72,
+        "reference_x": 233.86,
+        "reference_y": 244.41,
+        "confidence": 0.621,
+        "reprojection_error": 1.275,
+        "is_subpixel": true
+      },
+      {
+        "id": 85,
+        "source_x": 248.57,
+        "source_y": 241.63,
+        "reference_x": 252.67,
+        "reference_y": 239.92,
+        "confidence": 0.523,
+        "reprojection_error": 2.325,
+        "is_subpixel": false
+      },
+      {
+        "id": 86,
+        "source_x": 226.13,
+        "source_y": 227.72,
+        "reference_x": 231.86,
+        "reference_y": 228.87,
+        "confidence": 0.483,
+        "reprojection_error": 1.119,
+        "is_subpixel": false
+      },
+      {
+        "id": 87,
+        "source_x": 239.82,
+        "source_y": 233.26,
+        "reference_x": 243.01,
+        "reference_y": 232.69,
+        "confidence": 0.461,
+        "reprojection_error": 1.79,
+        "is_subpixel": true
+      },
+      {
+        "id": 88,
+        "source_x": 349.54,
+        "source_y": 261.13,
+        "reference_x": 343.9,
+        "reference_y": 254.34,
+        "confidence": 0.445,
+        "reprojection_error": 0.387,
+        "is_subpixel": false
+      },
+      {
+        "id": 89,
+        "source_x": 430.04,
+        "source_y": 240.04,
+        "reference_x": 416.61,
+        "reference_y": 229.39,
+        "confidence": 0.541,
+        "reprojection_error": 0.461,
+        "is_subpixel": false
+      },
+      {
+        "id": 90,
+        "source_x": 517.08,
+        "source_y": 226.91,
+        "reference_x": 495.71,
+        "reference_y": 211.04,
+        "confidence": 0.582,
+        "reprojection_error": 1.034,
+        "is_subpixel": true
+      },
+      {
+        "id": 91,
+        "source_x": 482.26,
+        "source_y": 231.46,
+        "reference_x": 464.54,
+        "reference_y": 217.32,
+        "confidence": 0.557,
+        "reprojection_error": 0.91,
+        "is_subpixel": true
+      },
+      {
+        "id": 92,
+        "source_x": 510.29,
+        "source_y": 260.4,
+        "reference_x": 487.75,
+        "reference_y": 244.1,
+        "confidence": 0.543,
+        "reprojection_error": 0.836,
+        "is_subpixel": false
+      },
+      {
+        "id": 93,
+        "source_x": 502.33,
+        "source_y": 229.34,
+        "reference_x": 481.48,
+        "reference_y": 212.13,
+        "confidence": 0.512,
+        "reprojection_error": 1.908,
+        "is_subpixel": true
+      },
+      {
+        "id": 94,
+        "source_x": 555.29,
+        "source_y": 261.36,
+        "reference_x": 529.07,
+        "reference_y": 240.82,
+        "confidence": 0.539,
+        "reprojection_error": 1.154,
+        "is_subpixel": true
+      },
+      {
+        "id": 95,
+        "source_x": 581.54,
+        "source_y": 266.7,
+        "reference_x": 552.06,
+        "reference_y": 246.39,
+        "confidence": 0.507,
+        "reprojection_error": 1.125,
+        "is_subpixel": true
+      },
+      {
+        "id": 96,
+        "source_x": 541.64,
+        "source_y": 227.42,
+        "reference_x": 514.74,
+        "reference_y": 210.98,
+        "confidence": 0.484,
+        "reprojection_error": 2.174,
+        "is_subpixel": true
+      },
+      {
+        "id": 97,
+        "source_x": 528.9,
+        "source_y": 226.04,
+        "reference_x": 505.26,
+        "reference_y": 209.62,
+        "confidence": 0.482,
+        "reprojection_error": 0.421,
+        "is_subpixel": true
+      },
+      {
+        "id": 98,
+        "source_x": 50.11,
+        "source_y": 342.96,
+        "reference_x": 64.15,
+        "reference_y": 357.55,
+        "confidence": 0.592,
+        "reprojection_error": 2.355,
+        "is_subpixel": false
+      },
+      {
+        "id": 99,
+        "source_x": 36.8,
+        "source_y": 361.87,
+        "reference_x": 54.51,
+        "reference_y": 376.95,
+        "confidence": 0.506,
+        "reprojection_error": 1.331,
+        "is_subpixel": false
+      },
+      {
+        "id": 100,
+        "source_x": 15.37,
+        "source_y": 354.32,
+        "reference_x": 33.77,
+        "reference_y": 370.36,
+        "confidence": 0.502,
+        "reprojection_error": 0.582,
+        "is_subpixel": true
+      },
+      {
+        "id": 101,
+        "source_x": 74.18,
+        "source_y": 305.64,
+        "reference_x": 89.39,
+        "reference_y": 318.02,
+        "confidence": 0.501,
+        "reprojection_error": 0.804,
+        "is_subpixel": true
+      },
+      {
+        "id": 102,
+        "source_x": 89.77,
+        "source_y": 325.58,
+        "reference_x": 102.89,
+        "reference_y": 336.63,
+        "confidence": 0.662,
+        "reprojection_error": 0.883,
+        "is_subpixel": true
+      },
+      {
+        "id": 103,
+        "source_x": 104.87,
+        "source_y": 350.37,
+        "reference_x": 117.35,
+        "reference_y": 359.2,
+        "confidence": 0.63,
+        "reprojection_error": 0.575,
+        "is_subpixel": true
+      },
+      {
+        "id": 104,
+        "source_x": 109.56,
+        "source_y": 338.83,
+        "reference_x": 121.96,
+        "reference_y": 348.14,
+        "confidence": 0.63,
+        "reprojection_error": 0.25,
+        "is_subpixel": true
+      },
+      {
+        "id": 105,
+        "source_x": 87.19,
+        "source_y": 352.11,
+        "reference_x": 102.35,
+        "reference_y": 363.37,
+        "confidence": 0.583,
+        "reprojection_error": 1.533,
+        "is_subpixel": true
+      },
+      {
+        "id": 106,
+        "source_x": 216.27,
+        "source_y": 361.43,
+        "reference_x": 220.54,
+        "reference_y": 362.3,
+        "confidence": 0.685,
+        "reprojection_error": 0.694,
+        "is_subpixel": true
+      },
+      {
+        "id": 107,
+        "source_x": 221.7,
+        "source_y": 328.89,
+        "reference_x": 223.86,
+        "reference_y": 330.05,
+        "confidence": 0.668,
+        "reprojection_error": 2.476,
+        "is_subpixel": true
+      },
+      {
+        "id": 108,
+        "source_x": 174.44,
+        "source_y": 354.74,
+        "reference_x": 182.09,
+        "reference_y": 360.65,
+        "confidence": 0.621,
+        "reprojection_error": 1.586,
+        "is_subpixel": true
+      },
+      {
+        "id": 109,
+        "source_x": 192.37,
+        "source_y": 373.03,
+        "reference_x": 197.87,
+        "reference_y": 376.18,
+        "confidence": 0.566,
+        "reprojection_error": 1.036,
+        "is_subpixel": true
+      },
+      {
+        "id": 110,
+        "source_x": 236.45,
+        "source_y": 364.1,
+        "reference_x": 240.15,
+        "reference_y": 363.81,
+        "confidence": 0.593,
+        "reprojection_error": 0.473,
+        "is_subpixel": true
+      },
+      {
+        "id": 111,
+        "source_x": 285.76,
+        "source_y": 349.05,
+        "reference_x": 285.36,
+        "reference_y": 345.44,
+        "confidence": 0.548,
+        "reprojection_error": 0.273,
+        "is_subpixel": false
+      },
+      {
+        "id": 112,
+        "source_x": 227.22,
+        "source_y": 309.83,
+        "reference_x": 229.69,
+        "reference_y": 311.17,
+        "confidence": 0.52,
+        "reprojection_error": 1.901,
+        "is_subpixel": true
+      },
+      {
+        "id": 113,
+        "source_x": 319.56,
+        "source_y": 356.67,
+        "reference_x": 316.56,
+        "reference_y": 350.72,
+        "confidence": 0.536,
+        "reprojection_error": 0.599,
+        "is_subpixel": true
+      },
+      {
+        "id": 114,
+        "source_x": 371.41,
+        "source_y": 313.15,
+        "reference_x": 362.4,
+        "reference_y": 304.15,
+        "confidence": 0.512,
+        "reprojection_error": 1.004,
+        "is_subpixel": true
+      },
+      {
+        "id": 115,
+        "source_x": 442.9,
+        "source_y": 372.89,
+        "reference_x": 429.22,
+        "reference_y": 356.78,
+        "confidence": 0.518,
+        "reprojection_error": 1.974,
+        "is_subpixel": true
+      },
+      {
+        "id": 116,
+        "source_x": 413.02,
+        "source_y": 334.22,
+        "reference_x": 400.93,
+        "reference_y": 321.85,
+        "confidence": 0.5,
+        "reprojection_error": 0.287,
+        "is_subpixel": true
+      },
+      {
+        "id": 117,
+        "source_x": 481.98,
+        "source_y": 374.82,
+        "reference_x": 462.88,
+        "reference_y": 356.92,
+        "confidence": 0.599,
+        "reprojection_error": 0.269,
+        "is_subpixel": true
+      },
+      {
+        "id": 118,
+        "source_x": 571.27,
+        "source_y": 314.69,
+        "reference_x": 542.92,
+        "reference_y": 292.58,
+        "confidence": 0.652,
+        "reprojection_error": 0.543,
+        "is_subpixel": true
+      },
+      {
+        "id": 119,
+        "source_x": 578.89,
+        "source_y": 366.57,
+        "reference_x": 550.05,
+        "reference_y": 343.07,
+        "confidence": 0.615,
+        "reprojection_error": 1.421,
+        "is_subpixel": true
+      },
+      {
+        "id": 120,
+        "source_x": 551.74,
+        "source_y": 309.09,
+        "reference_x": 524.64,
+        "reference_y": 289.02,
+        "confidence": 0.519,
+        "reprojection_error": 0.837,
+        "is_subpixel": true
+      }
+    ]
+  },
+  "iirs": {
+    "metadata": {
+      "id": "iirs",
+      "name": "Chandrayaan-2 IIRS vs Optical Panchromatic",
+      "category": "Multi-Modal Spectral Invariance (Infrared Absorption)",
+      "sensor": "IIRS",
+      "src_path": "static/samples/iirs_source.png",
+      "ref_path": "static/samples/iirs_reference.png",
+      "sun_az_src": null,
+      "sun_az_ref": null,
+      "model": "homography",
+      "description": "Imaging Infrared Spectrometer band aligned to optical panchromatic reference, overcoming mineral absorption spectral contrast inversion."
+    },
+    "success": true,
+    "elapsed_seconds": 0.529,
+    "sensor_type": "IIRS",
+    "metrics": {
+      "total_candidates": 148,
+      "inlier_count": 67,
+      "inlier_ratio_pct": 45.27,
+      "rmse": 1.202,
+      "mean_matching_error": 1.0202,
+      "median_error": 0.842,
+      "max_error": 2.593,
+      "coverage_pct": 43.75,
+      "uniformity_score": 0.77,
+      "subpixel_accuracy_pct": 22.39,
+      "quality_grade": "Good (Valid Geometric Match)"
+    },
+    "quality_report_text": "=======================================================\n   LUNAMATCH - CHANDRAYAAN-2 REGISTRATION QUALITY REPORT\n   Sensor Modality: IIRS\n=======================================================\nTotal candidate matches : 148\nRANSAC inliers          : 67\nInlier ratio             : 45.27%\nRMSE                     : 1.202 pixels\nMean matching error      : 1.0202 pixels\nCoverage                 : 43.75%\nSub-pixel accuracy (<0.5): 22.39%\nSpatial Uniformity Score : 0.77 / 1.000\nRegistration Quality     : Good (Valid Geometric Match)\n=======================================================",
+    "stage_logs": [
+      {
+        "stage": 1,
+        "name": "Image Preprocessing",
+        "detail": "Source dimensions: 600x600 (IIRS), Reference: 600x600. Denoising & radiometric normalization."
+      },
+      {
+        "stage": 2,
+        "name": "Illumination & Sun-Angle Compensation",
+        "detail": "Constructing gradient magnitude and topographic ridge invariant representations (Src Az: None\u00b0, Ref Az: None\u00b0)."
+      },
+      {
+        "stage": 3,
+        "name": "Multi-Scale Pyramid Representation",
+        "detail": "Building 3-level Gaussian & Laplacian multi-resolution image pyramids (1x, 0.5x, 0.25x)."
+      },
+      {
+        "stage": 4,
+        "name": "Sensor-Invariant Feature Extraction",
+        "detail": "Detecting scale-space extrema & mapping descriptors to RootSIFT Hellinger kernel space."
+      },
+      {
+        "stage": 5,
+        "name": "Feature Correspondence & Mutual Verification",
+        "detail": "Extracted 6639 source and 5742 reference keypoints. Applying Lowe's ratio test and bilateral cross-check."
+      },
+      {
+        "stage": 6,
+        "name": "Geometric Verification (RANSAC)",
+        "detail": "Estimating HOMOGRAPHY transformation across 148 candidate correspondences with reprojection threshold 2.5 px."
+      },
+      {
+        "stage": 7,
+        "name": "Sub-Pixel Refinement",
+        "detail": "Refining 84 inlier correspondences to fractional pixel precision using local patch NCC quadratic peak estimation and least-squares model fine-tuning."
+      },
+      {
+        "stage": 8,
+        "name": "Uniform Spatial Distribution",
+        "detail": "Binning into 8x8 grid to eliminate crater clustering and maximize lunar surface coverage."
+      },
+      {
+        "stage": 9,
+        "name": "Registration & Visual Outputs",
+        "detail": "Generating warped registered image, 50/50 blend, checkerboard overlay, and residual difference map."
+      },
+      {
+        "stage": 10,
+        "name": "Evaluation Metrics & Quality Report",
+        "detail": "Computing RMSE, inlier ratio, spatial coverage, and sub-pixel accuracy scores."
+      }
+    ],
+    "matrix": [
+      [
+        1.0115821374257792,
+        0.041989155288132796,
+        -28.39796761996231
+      ],
+      [
+        -0.04834900681547599,
+        1.0102827681506468,
+        -2.1276230608961963
+      ],
+      [
+        -1.1098595491994782e-05,
+        -9.534540646565413e-06,
+        1.0
+      ]
+    ],
+    "matches_summary": {
+      "total_candidates": 148,
+      "ransac_inliers": 84,
+      "uniform_selected": 67,
+      "coverage_pct": 43.75,
+      "uniformity_score": 0.77
+    },
+    "output_files": {
+      "warped": "static/preset_outputs/warped_1790947887137.png",
+      "blend": "static/preset_outputs/blend_1790947887137.png",
+      "checker": "static/preset_outputs/checker_1790947887137.png",
+      "diff": "static/preset_outputs/diff_1790947887137.png",
+      "correspondence": "static/preset_outputs/correspondence_1790947887137.png",
+      "grid": "static/preset_outputs/grid_1790947887137.png"
+    },
+    "match_points": [
+      {
+        "id": 1,
+        "source_x": 166.44,
+        "source_y": 68.94,
+        "reference_x": 141.79,
+        "reference_y": 58.73,
+        "confidence": 0.638,
+        "reprojection_error": 1.689,
+        "is_subpixel": true
+      },
+      {
+        "id": 2,
+        "source_x": 205.98,
+        "source_y": 58.25,
+        "reference_x": 184.0,
+        "reference_y": 47.31,
+        "confidence": 0.572,
+        "reprojection_error": 1.144,
+        "is_subpixel": true
+      },
+      {
+        "id": 3,
+        "source_x": 224.67,
+        "source_y": 64.18,
+        "reference_x": 202.19,
+        "reference_y": 52.84,
+        "confidence": 0.476,
+        "reprojection_error": 0.829,
+        "is_subpixel": true
+      },
+      {
+        "id": 4,
+        "source_x": 227.82,
+        "source_y": 71.96,
+        "reference_x": 205.5,
+        "reference_y": 59.7,
+        "confidence": 0.548,
+        "reprojection_error": 0.249,
+        "is_subpixel": true
+      },
+      {
+        "id": 5,
+        "source_x": 225.94,
+        "source_y": 55.53,
+        "reference_x": 202.62,
+        "reference_y": 43.06,
+        "confidence": 0.538,
+        "reprojection_error": 0.502,
+        "is_subpixel": true
+      },
+      {
+        "id": 6,
+        "source_x": 349.83,
+        "source_y": 65.82,
+        "reference_x": 330.69,
+        "reference_y": 47.1,
+        "confidence": 0.673,
+        "reprojection_error": 1.113,
+        "is_subpixel": true
+      },
+      {
+        "id": 7,
+        "source_x": 146.11,
+        "source_y": 82.95,
+        "reference_x": 123.19,
+        "reference_y": 76.79,
+        "confidence": 0.475,
+        "reprojection_error": 1.999,
+        "is_subpixel": false
+      },
+      {
+        "id": 8,
+        "source_x": 220.85,
+        "source_y": 101.59,
+        "reference_x": 198.64,
+        "reference_y": 90.42,
+        "confidence": 0.575,
+        "reprojection_error": 1.349,
+        "is_subpixel": false
+      },
+      {
+        "id": 9,
+        "source_x": 166.04,
+        "source_y": 81.0,
+        "reference_x": 144.66,
+        "reference_y": 71.59,
+        "confidence": 0.529,
+        "reprojection_error": 1.347,
+        "is_subpixel": true
+      },
+      {
+        "id": 10,
+        "source_x": 288.12,
+        "source_y": 108.13,
+        "reference_x": 268.93,
+        "reference_y": 92.58,
+        "confidence": 0.597,
+        "reprojection_error": 1.018,
+        "is_subpixel": true
+      },
+      {
+        "id": 11,
+        "source_x": 293.52,
+        "source_y": 118.01,
+        "reference_x": 274.29,
+        "reference_y": 104.59,
+        "confidence": 0.545,
+        "reprojection_error": 1.293,
+        "is_subpixel": true
+      },
+      {
+        "id": 12,
+        "source_x": 252.72,
+        "source_y": 128.76,
+        "reference_x": 231.72,
+        "reference_y": 116.01,
+        "confidence": 0.542,
+        "reprojection_error": 1.888,
+        "is_subpixel": true
+      },
+      {
+        "id": 13,
+        "source_x": 348.53,
+        "source_y": 95.68,
+        "reference_x": 331.69,
+        "reference_y": 77.05,
+        "confidence": 0.771,
+        "reprojection_error": 2.175,
+        "is_subpixel": true
+      },
+      {
+        "id": 14,
+        "source_x": 360.15,
+        "source_y": 127.14,
+        "reference_x": 344.44,
+        "reference_y": 109.01,
+        "confidence": 0.615,
+        "reprojection_error": 1.467,
+        "is_subpixel": false
+      },
+      {
+        "id": 15,
+        "source_x": 316.58,
+        "source_y": 78.24,
+        "reference_x": 296.63,
+        "reference_y": 61.81,
+        "confidence": 0.607,
+        "reprojection_error": 0.242,
+        "is_subpixel": true
+      },
+      {
+        "id": 16,
+        "source_x": 330.57,
+        "source_y": 81.18,
+        "reference_x": 310.85,
+        "reference_y": 64.59,
+        "confidence": 0.593,
+        "reprojection_error": 0.405,
+        "is_subpixel": true
+      },
+      {
+        "id": 17,
+        "source_x": 399.45,
+        "source_y": 125.44,
+        "reference_x": 383.55,
+        "reference_y": 105.34,
+        "confidence": 0.714,
+        "reprojection_error": 0.706,
+        "is_subpixel": false
+      },
+      {
+        "id": 18,
+        "source_x": 421.67,
+        "source_y": 114.57,
+        "reference_x": 404.51,
+        "reference_y": 94.06,
+        "confidence": 0.59,
+        "reprojection_error": 0.846,
+        "is_subpixel": true
+      },
+      {
+        "id": 19,
+        "source_x": 385.08,
+        "source_y": 127.4,
+        "reference_x": 366.14,
+        "reference_y": 107.75,
+        "confidence": 0.521,
+        "reprojection_error": 2.508,
+        "is_subpixel": true
+      },
+      {
+        "id": 20,
+        "source_x": 427.35,
+        "source_y": 87.73,
+        "reference_x": 409.9,
+        "reference_y": 66.43,
+        "confidence": 0.499,
+        "reprojection_error": 0.22,
+        "is_subpixel": true
+      },
+      {
+        "id": 21,
+        "source_x": 465.24,
+        "source_y": 147.34,
+        "reference_x": 451.47,
+        "reference_y": 125.79,
+        "confidence": 0.52,
+        "reprojection_error": 0.74,
+        "is_subpixel": true
+      },
+      {
+        "id": 22,
+        "source_x": 130.56,
+        "source_y": 192.34,
+        "reference_x": 112.48,
+        "reference_y": 186.06,
+        "confidence": 0.689,
+        "reprojection_error": 0.562,
+        "is_subpixel": true
+      },
+      {
+        "id": 23,
+        "source_x": 125.14,
+        "source_y": 204.61,
+        "reference_x": 108.2,
+        "reference_y": 199.33,
+        "confidence": 0.59,
+        "reprojection_error": 1.067,
+        "is_subpixel": false
+      },
+      {
+        "id": 24,
+        "source_x": 135.09,
+        "source_y": 170.39,
+        "reference_x": 115.78,
+        "reference_y": 163.91,
+        "confidence": 0.56,
+        "reprojection_error": 0.086,
+        "is_subpixel": true
+      },
+      {
+        "id": 25,
+        "source_x": 97.63,
+        "source_y": 188.35,
+        "reference_x": 76.37,
+        "reference_y": 183.72,
+        "confidence": 0.481,
+        "reprojection_error": 2.142,
+        "is_subpixel": false
+      },
+      {
+        "id": 26,
+        "source_x": 212.09,
+        "source_y": 221.18,
+        "reference_x": 195.82,
+        "reference_y": 212.67,
+        "confidence": 0.471,
+        "reprojection_error": 0.816,
+        "is_subpixel": true
+      },
+      {
+        "id": 27,
+        "source_x": 266.95,
+        "source_y": 167.32,
+        "reference_x": 250.47,
+        "reference_y": 154.25,
+        "confidence": 0.527,
+        "reprojection_error": 0.807,
+        "is_subpixel": true
+      },
+      {
+        "id": 28,
+        "source_x": 109.31,
+        "source_y": 268.43,
+        "reference_x": 93.61,
+        "reference_y": 263.47,
+        "confidence": 0.486,
+        "reprojection_error": 1.321,
+        "is_subpixel": true
+      },
+      {
+        "id": 29,
+        "source_x": 99.29,
+        "source_y": 237.65,
+        "reference_x": 81.53,
+        "reference_y": 232.2,
+        "confidence": 0.485,
+        "reprojection_error": 1.914,
+        "is_subpixel": true
+      },
+      {
+        "id": 30,
+        "source_x": 199.97,
+        "source_y": 298.43,
+        "reference_x": 187.59,
+        "reference_y": 291.14,
+        "confidence": 0.467,
+        "reprojection_error": 0.225,
+        "is_subpixel": true
+      },
+      {
+        "id": 31,
+        "source_x": 180.01,
+        "source_y": 236.8,
+        "reference_x": 164.33,
+        "reference_y": 230.94,
+        "confidence": 0.462,
+        "reprojection_error": 1.56,
+        "is_subpixel": true
+      },
+      {
+        "id": 32,
+        "source_x": 136.18,
+        "source_y": 317.42,
+        "reference_x": 122.54,
+        "reference_y": 312.49,
+        "confidence": 0.566,
+        "reprojection_error": 1.148,
+        "is_subpixel": true
+      },
+      {
+        "id": 33,
+        "source_x": 76.05,
+        "source_y": 326.23,
+        "reference_x": 62.82,
+        "reference_y": 324.31,
+        "confidence": 0.534,
+        "reprojection_error": 0.829,
+        "is_subpixel": true
+      },
+      {
+        "id": 34,
+        "source_x": 147.54,
+        "source_y": 314.26,
+        "reference_x": 135.4,
+        "reference_y": 309.87,
+        "confidence": 0.484,
+        "reprojection_error": 0.758,
+        "is_subpixel": true
+      },
+      {
+        "id": 35,
+        "source_x": 223.66,
+        "source_y": 328.86,
+        "reference_x": 213.44,
+        "reference_y": 320.13,
+        "confidence": 0.593,
+        "reprojection_error": 1.135,
+        "is_subpixel": true
+      },
+      {
+        "id": 36,
+        "source_x": 220.68,
+        "source_y": 360.11,
+        "reference_x": 211.5,
+        "reference_y": 352.88,
+        "confidence": 0.482,
+        "reprojection_error": 0.367,
+        "is_subpixel": true
+      },
+      {
+        "id": 37,
+        "source_x": 154.68,
+        "source_y": 320.97,
+        "reference_x": 142.99,
+        "reference_y": 316.29,
+        "confidence": 0.477,
+        "reprojection_error": 0.768,
+        "is_subpixel": true
+      },
+      {
+        "id": 38,
+        "source_x": 161.82,
+        "source_y": 338.47,
+        "reference_x": 149.67,
+        "reference_y": 334.59,
+        "confidence": 0.469,
+        "reprojection_error": 1.09,
+        "is_subpixel": true
+      },
+      {
+        "id": 39,
+        "source_x": 297.88,
+        "source_y": 354.72,
+        "reference_x": 289.84,
+        "reference_y": 344.69,
+        "confidence": 0.592,
+        "reprojection_error": 0.556,
+        "is_subpixel": true
+      },
+      {
+        "id": 40,
+        "source_x": 236.43,
+        "source_y": 328.31,
+        "reference_x": 224.53,
+        "reference_y": 321.02,
+        "confidence": 0.479,
+        "reprojection_error": 1.692,
+        "is_subpixel": true
+      },
+      {
+        "id": 41,
+        "source_x": 311.93,
+        "source_y": 353.31,
+        "reference_x": 303.9,
+        "reference_y": 341.94,
+        "confidence": 0.739,
+        "reprojection_error": 0.204,
+        "is_subpixel": true
+      },
+      {
+        "id": 42,
+        "source_x": 351.82,
+        "source_y": 325.12,
+        "reference_x": 342.33,
+        "reference_y": 310.51,
+        "confidence": 0.625,
+        "reprojection_error": 1.58,
+        "is_subpixel": true
+      },
+      {
+        "id": 43,
+        "source_x": 323.76,
+        "source_y": 354.45,
+        "reference_x": 315.21,
+        "reference_y": 343.81,
+        "confidence": 0.558,
+        "reprojection_error": 1.485,
+        "is_subpixel": false
+      },
+      {
+        "id": 44,
+        "source_x": 367.43,
+        "source_y": 322.62,
+        "reference_x": 358.65,
+        "reference_y": 309.43,
+        "confidence": 0.541,
+        "reprojection_error": 1.401,
+        "is_subpixel": true
+      },
+      {
+        "id": 45,
+        "source_x": 425.72,
+        "source_y": 350.95,
+        "reference_x": 420.32,
+        "reference_y": 333.53,
+        "confidence": 0.475,
+        "reprojection_error": 1.02,
+        "is_subpixel": true
+      },
+      {
+        "id": 46,
+        "source_x": 454.61,
+        "source_y": 366.5,
+        "reference_x": 450.8,
+        "reference_y": 349.11,
+        "confidence": 0.575,
+        "reprojection_error": 0.091,
+        "is_subpixel": false
+      },
+      {
+        "id": 47,
+        "source_x": 116.53,
+        "source_y": 386.49,
+        "reference_x": 106.51,
+        "reference_y": 383.82,
+        "confidence": 0.59,
+        "reprojection_error": 0.842,
+        "is_subpixel": false
+      },
+      {
+        "id": 48,
+        "source_x": 100.19,
+        "source_y": 413.41,
+        "reference_x": 91.24,
+        "reference_y": 412.32,
+        "confidence": 0.502,
+        "reprojection_error": 0.654,
+        "is_subpixel": true
+      },
+      {
+        "id": 49,
+        "source_x": 203.95,
+        "source_y": 404.93,
+        "reference_x": 195.66,
+        "reference_y": 399.25,
+        "confidence": 0.665,
+        "reprojection_error": 0.549,
+        "is_subpixel": true
+      },
+      {
+        "id": 50,
+        "source_x": 196.65,
+        "source_y": 375.36,
+        "reference_x": 186.8,
+        "reference_y": 369.64,
+        "confidence": 0.586,
+        "reprojection_error": 0.575,
+        "is_subpixel": true
+      },
+      {
+        "id": 51,
+        "source_x": 222.61,
+        "source_y": 390.03,
+        "reference_x": 214.96,
+        "reference_y": 382.86,
+        "confidence": 0.548,
+        "reprojection_error": 0.81,
+        "is_subpixel": true
+      },
+      {
+        "id": 52,
+        "source_x": 181.2,
+        "source_y": 407.98,
+        "reference_x": 173.3,
+        "reference_y": 404.41,
+        "confidence": 0.544,
+        "reprojection_error": 0.781,
+        "is_subpixel": true
+      },
+      {
+        "id": 53,
+        "source_x": 235.77,
+        "source_y": 433.86,
+        "reference_x": 231.95,
+        "reference_y": 429.23,
+        "confidence": 0.51,
+        "reprojection_error": 2.59,
+        "is_subpixel": false
+      },
+      {
+        "id": 54,
+        "source_x": 453.63,
+        "source_y": 399.23,
+        "reference_x": 453.6,
+        "reference_y": 383.73,
+        "confidence": 0.498,
+        "reprojection_error": 2.593,
+        "is_subpixel": false
+      },
+      {
+        "id": 55,
+        "source_x": 65.94,
+        "source_y": 473.65,
+        "reference_x": 58.72,
+        "reference_y": 475.79,
+        "confidence": 0.752,
+        "reprojection_error": 0.236,
+        "is_subpixel": true
+      },
+      {
+        "id": 56,
+        "source_x": 42.98,
+        "source_y": 487.55,
+        "reference_x": 35.79,
+        "reference_y": 490.79,
+        "confidence": 0.636,
+        "reprojection_error": 0.1,
+        "is_subpixel": true
+      },
+      {
+        "id": 57,
+        "source_x": 109.96,
+        "source_y": 521.04,
+        "reference_x": 105.16,
+        "reference_y": 522.54,
+        "confidence": 0.616,
+        "reprojection_error": 0.41,
+        "is_subpixel": true
+      },
+      {
+        "id": 58,
+        "source_x": 144.21,
+        "source_y": 463.08,
+        "reference_x": 137.47,
+        "reference_y": 461.85,
+        "confidence": 0.585,
+        "reprojection_error": 0.438,
+        "is_subpixel": true
+      },
+      {
+        "id": 59,
+        "source_x": 93.66,
+        "source_y": 474.67,
+        "reference_x": 86.01,
+        "reference_y": 475.51,
+        "confidence": 0.576,
+        "reprojection_error": 0.751,
+        "is_subpixel": true
+      },
+      {
+        "id": 60,
+        "source_x": 126.07,
+        "source_y": 476.93,
+        "reference_x": 118.91,
+        "reference_y": 477.49,
+        "confidence": 0.563,
+        "reprojection_error": 1.42,
+        "is_subpixel": true
+      },
+      {
+        "id": 61,
+        "source_x": 402.91,
+        "source_y": 472.18,
+        "reference_x": 402.55,
+        "reference_y": 458.13,
+        "confidence": 0.636,
+        "reprojection_error": 1.423,
+        "is_subpixel": true
+      },
+      {
+        "id": 62,
+        "source_x": 437.96,
+        "source_y": 501.13,
+        "reference_x": 438.61,
+        "reference_y": 488.72,
+        "confidence": 0.477,
+        "reprojection_error": 1.669,
+        "is_subpixel": false
+      },
+      {
+        "id": 63,
+        "source_x": 422.74,
+        "source_y": 473.64,
+        "reference_x": 423.26,
+        "reference_y": 459.98,
+        "confidence": 0.467,
+        "reprojection_error": 0.312,
+        "is_subpixel": false
+      },
+      {
+        "id": 64,
+        "source_x": 244.08,
+        "source_y": 573.35,
+        "reference_x": 243.92,
+        "reference_y": 568.35,
+        "confidence": 0.535,
+        "reprojection_error": 1.757,
+        "is_subpixel": true
+      },
+      {
+        "id": 65,
+        "source_x": 230.49,
+        "source_y": 557.67,
+        "reference_x": 229.9,
+        "reference_y": 555.29,
+        "confidence": 0.509,
+        "reprojection_error": 0.795,
+        "is_subpixel": true
+      },
+      {
+        "id": 66,
+        "source_x": 288.64,
+        "source_y": 588.22,
+        "reference_x": 290.85,
+        "reference_y": 583.12,
+        "confidence": 0.485,
+        "reprojection_error": 0.206,
+        "is_subpixel": true
+      },
+      {
+        "id": 67,
+        "source_x": 283.95,
+        "source_y": 557.9,
+        "reference_x": 283.82,
+        "reference_y": 553.13,
+        "confidence": 0.463,
+        "reprojection_error": 1.088,
+        "is_subpixel": true
+      }
+    ]
+  }
+}

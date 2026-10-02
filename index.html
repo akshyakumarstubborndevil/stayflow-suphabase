@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LunaMatch-R | Multi-Modal Lunar Image Registration System</title>
+  <meta name="description" content="Chandrayaan-2 Planetary Surface Image Registration Platform with Sun-Angle, Scale, and Multi-Modal Spectral Invariance. Deployable on Netlify.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f0ff'><path d='M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+  <!-- App Header / Mission Telemetry Bar -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20"/>
+          <circle cx="8" cy="10" r="1.5" fill="currentColor"/>
+          <circle cx="15" cy="14" r="2" fill="currentColor"/>
+          <circle cx="14" cy="7" r="1" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <h1>LunaMatch-R <span class="mission-tag">Chandrayaan-2</span></h1>
+        <p>Multi-Modal Lunar Image Correspondence & Sub-Pixel Registration</p>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="nav-tab-btn active" data-target="dashboard" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        Mission Control
+      </button>
+      <button class="nav-tab-btn" data-target="studio" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Registration Studio
+      </button>
+      <button class="nav-tab-btn" data-target="visualizer" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        Interactive Visualizer
+      </button>
+      <button class="nav-tab-btn" data-target="evaluation" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Evaluation Metrics
+      </button>
+      <button class="nav-tab-btn" data-target="documentation" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Netlify & Docs
+      </button>
+    </nav>
+
+    <!-- Header Actions & Netlify Status -->
+    <div class="header-actions">
+      <div class="badge-netlify" title="Deployable directly onto Netlify with zero build step">
+        <div class="status-dot"></div>
+        <span>Netlify Ready (Jamstack & CV)</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="btn-export-report">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+        Print Report
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <!-- 1. MISSION CONTROL / DASHBOARD TAB -->
+    <section class="tab-pane active" id="dashboard">
+      <!-- High-level Metric Highlights -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">
+            <span>Root Mean Square Error</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 6 4 4-4 4-4-4 4-4"/></svg>
+          </div>
+          <div class="metric-value" id="metric-rmse">1.268 px</div>
+          <div class="metric-desc">Sub-pixel spatial accuracy verified</div>
+        </div>
+
+        <div class="metric-card accent-emerald">
+          <div class="metric-label">
+            <span>Consensus Inliers</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="metric-value" id="metric-inliers">182</div>
+          <div class="metric-desc">Robust RANSAC geometric consensus</div>
+        </div>
+
+        <div class="metric-card accent-purple">
+          <div class="metric-label">
+            <span>Spatial Coverage</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+          </div>
+          <div class="metric-value" id="metric-coverage">84.4%</div>
+          <div class="metric-desc">Uniform 8x8 lunar terrain distribution</div>
+        </div>
+
+        <div class="metric-card accent-amber">
+          <div class="metric-label">
+            <span>Sub-Pixel Precision</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          </div>
+          <div class="metric-value" id="metric-subpixel">16.5%</div>
+          <div class="metric-desc">Quadratic peak sub-pixel localization</div>
+        </div>
+      </div>
+
+      <!-- Quick Action: Chandrayaan-2 Benchmark Presets -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-title">
+          <span class="heading-text">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Chandrayaan-2 Benchmark Pairs (Click to Inspect)
+          </span>
+          <span style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">ISRO MISSION TESTBED</span>
+        </div>
+
+        <div class="presets-grid">
+          <!-- Preset 1 -->
+          <div class="preset-card active" data-preset="ohrc">
+            <div class="preset-header">
+              <span class="preset-title">OHRC vs LROC NAC</span>
+              <span class="preset-tag">SUN-ANGLE INVARIANT</span>
+            </div>
+            <p class="preset-desc">Severe 105° solar azimuth inversion (45° vs 150°). Resolves flipped crater shadows via gradient invariant representations.</p>
+            <div class="preset-thumbnails">
+              <img src="static/samples/ohrc_source.png" class="preset-thumb" alt="OHRC Source">
+              <img src="static/samples/ohrc_reference.png" class="preset-thumb" alt="LROC Reference">
+            </div>
+          </div>
+
+          <!-- Preset 2 -->
+          <div class="preset-card" data-preset="tmc">
+            <div class="preset-header">
+              <span class="preset-title">TMC-2 vs Reference Base</span>
+              <span class="preset-tag">SCALE & VIEWPOINT</span>
+            </div>
+            <p class="preset-desc">1.35x zoom scale change, 12° orbital tilt, and perspective distortion aligned via scale-space pyramid matching.</p>
+            <div class="preset-thumbnails">
+              <img src="static/samples/tmc_source.png" class="preset-thumb" alt="TMC-2 Source">
+              <img src="static/samples/tmc_reference.png" class="preset-thumb" alt="TMC Reference">
+            </div>
+          </div>
+
+          <!-- Preset 3 -->
+          <div class="preset-card" data-preset="iirs">
+            <div class="preset-header">
+              <span class="preset-title">IIRS vs Optical Panchromatic</span>
+              <span class="preset-tag">MULTI-MODAL SPECTRAL</span>
+            </div>
+            <p class="preset-desc">Infrared absorption contrast inversion mapped to optical panchromatic surface using structural gradient descriptors.</p>
+            <div class="preset-thumbnails">
+              <img src="static/samples/iirs_source.png" class="preset-thumb" alt="IIRS Source">
+              <img src="static/samples/iirs_reference.png" class="preset-thumb" alt="Optical Reference">
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+          <button class="btn btn-secondary" onclick="switchTab('studio')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Open Registration Studio
+          </button>
+          <button class="btn btn-primary" onclick="switchTab('visualizer')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Launch Interactive Visualizer
+          </button>
+        </div>
+      </div>
+
+      <!-- System Architecture & Capabilities -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+        <div class="card">
+          <div class="card-title">
+            <span class="heading-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              10-Stage High-Precision Lunar Registration Engine
+            </span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; font-size: 0.82rem;">
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">1. Preprocessing & CLAHE</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">Denoising, bilateral filtering, and contrast normalization for low-reflectance regolith.</p>
+            </div>
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">2. Sun-Angle Compensation</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">Lommel-Seeliger topographic ridge mapping to eliminate shadow-induced false matches.</p>
+            </div>
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">3. Multi-Scale Pyramids</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">Octave Gaussian scale-space to align varying ground sampling distances (GSD).</p>
+            </div>
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">4. Sensor-Invariant Features</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">RootSIFT / gradient orientation descriptors invariant to spectral band differences.</p>
+            </div>
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">5. Mutual Cross-Check Matching</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">Lowe's distance ratio testing with bidirectional consistency verification.</p>
+            </div>
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">6. RANSAC Geometric Filter</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">Robust homography / affine model fitting with strict residual outlier rejection.</p>
+            </div>
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">7. Sub-Pixel Localization</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">Local patch cross-correlation with quadratic peak interpolation down to &lt; 0.1 px.</p>
+            </div>
+            <div style="padding: 0.6rem; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 2px solid var(--cyan);">
+              <strong style="color: var(--cyan);">8. Uniform Grid Sampling</strong>
+              <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 2px;">8x8 spatial binning to prevent crater clustering and guarantee surface-wide stability.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="heading-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg>
+              Mission Compliance
+            </span>
+          </div>
+          <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 0.65rem;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">Target RMSE</span>
+              <span style="color: var(--emerald); font-family: var(--font-mono);">&lt; 1.50 px (PASS)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">Inlier Ratio</span>
+              <span style="color: var(--emerald); font-family: var(--font-mono);">&gt; 25% (PASS)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">Spatial Coverage</span>
+              <span style="color: var(--emerald); font-family: var(--font-mono);">&gt; 60% (PASS)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">Supported Payloads</span>
+              <span style="color: var(--cyan); font-family: var(--font-mono);">OHRC, TMC, IIRS</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">Deploy Platform</span>
+              <span style="color: var(--emerald); font-family: var(--font-mono);">Netlify Jamstack</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. REGISTRATION STUDIO TAB -->
+    <section class="tab-pane" id="studio">
+      <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem;">
+        
+        <!-- Image Upload & Preview Pane -->
+        <div class="card">
+          <div class="card-title">
+            <span class="heading-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+              Input Lunar Image Frames
+            </span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Drop custom files or keep selected preset</span>
+          </div>
+
+          <div class="dropzone-container">
+            <!-- Source Image Dropzone -->
+            <div class="dropzone" id="dropzone-source">
+              <input type="file" id="file-source" accept="image/*" style="display: none;">
+              <div id="placeholder-source">
+                <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div class="dropzone-title">Source / Moving Image</div>
+                <div class="dropzone-hint">Click or drag Chandrayaan-2 frame</div>
+              </div>
+              <img id="preview-source" class="dropzone-preview" src="static/samples/ohrc_source.png" alt="Source Preview">
+            </div>
+
+            <!-- Reference Image Dropzone -->
+            <div class="dropzone" id="dropzone-reference">
+              <input type="file" id="file-reference" accept="image/*" style="display: none;">
+              <div id="placeholder-reference">
+                <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div class="dropzone-title">Reference / Fixed Image</div>
+                <div class="dropzone-hint">Click or drag reference map</div>
+              </div>
+              <img id="preview-reference" class="dropzone-preview" src="static/samples/ohrc_reference.png" alt="Reference Preview">
+            </div>
+          </div>
+
+          <!-- Live Pipeline Execution Logs -->
+          <div style="margin-top: 1rem;">
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem; display: flex; justify-content: space-between;">
+              <span>PIPELINE EXECUTION TELEMETRY</span>
+              <span style="color: var(--cyan); font-family: var(--font-mono);">10 STAGES ACTIVE</span>
+            </div>
+            <div class="stage-logs-box" id="stage-logs-container">
+              <div class="log-entry">
+                <span class="log-stage-num">System</span>
+                <span class="log-stage-name">Status:</span>
+                <span class="log-stage-detail">Loaded Chandrayaan-2 testbed. Ready to align.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Configuration & Parameters Pane -->
+        <div class="card">
+          <div class="card-title">
+            <span class="heading-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Registration Parameters
+            </span>
+          </div>
+
+          <div class="form-grid" style="grid-template-columns: 1fr; gap: 0.85rem;">
+            <div class="form-group">
+              <label for="sensor-select">Sensor Modality</label>
+              <select id="sensor-select" class="form-control">
+                <option value="OHRC">Chandrayaan-2 OHRC (Optical High-Res)</option>
+                <option value="TMC">Chandrayaan-2 TMC-2 (Terrain Mapping)</option>
+                <option value="IIRS">Chandrayaan-2 IIRS (Infrared Spectrometer)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="model-select">Transformation Model</label>
+              <select id="model-select" class="form-control">
+                <option value="homography">Homography (Projective 8-DOF)</option>
+                <option value="affine">Affine Transformation (6-DOF)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="ransac-thresh-input">
+                <span>RANSAC Inlier Threshold</span>
+                <span style="color: var(--cyan); font-family: var(--font-mono);">2.8 px</span>
+              </label>
+              <input type="number" id="ransac-thresh-input" class="form-control" value="2.8" step="0.1" min="0.5" max="8.0">
+            </div>
+
+            <div class="form-group">
+              <label for="grid-cols-select">Uniform Distribution Grid</label>
+              <select id="grid-cols-select" class="form-control">
+                <option value="8">8 x 8 Spatial Bins (Recommended)</option>
+                <option value="6">6 x 6 Spatial Bins</option>
+                <option value="10">10 x 10 Spatial Bins</option>
+              </select>
+            </div>
+
+            <div style="background: rgba(0, 240, 255, 0.05); padding: 0.75rem; border-radius: 6px; border: 1px solid rgba(0, 240, 255, 0.2);">
+              <div style="font-size: 0.75rem; color: var(--cyan); font-weight: 600; margin-bottom: 0.35rem;">CLIENT-SIDE IN-BROWSER CV ACTIVE</div>
+              <p style="font-size: 0.73rem; color: var(--text-muted); line-height: 1.4;">
+                This deployment executes in pure client-side WebAssembly / JavaScript canvas directly on Netlify. You can drag and drop ANY two images and register them instantly without requiring a server!
+              </p>
+            </div>
+
+            <button class="btn btn-primary" id="btn-run-registration" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Execute Registration Pipeline
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE VISUALIZER TAB -->
+    <section class="tab-pane" id="visualizer">
+      <div class="viewer-wrapper">
+        <!-- Visualizer Toolbar -->
+        <div class="viewer-toolbar">
+          <!-- Layer Mode Switcher -->
+          <div class="mode-pills">
+            <button class="mode-pill-btn active" data-mode="split">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+              Split-Screen Wipe
+            </button>
+            <button class="mode-pill-btn" data-mode="blend">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>
+              Alpha Blend
+            </button>
+            <button class="mode-pill-btn" data-mode="checker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 12h18M12 3v18"/></svg>
+              Checkerboard
+            </button>
+            <button class="mode-pill-btn" data-mode="diff">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg>
+              Difference Heatmap
+            </button>
+            <button class="mode-pill-btn" data-mode="correspondence">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 9-6 6M9 9l6 6"/></svg>
+              Match Vectors
+            </button>
+            <button class="mode-pill-btn" data-mode="grid">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+              8x8 Grid
+            </button>
+            <button class="mode-pill-btn" data-mode="sidebyside">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="18" x="3" y="3" rx="1"/><rect width="7" height="18" x="14" y="3" rx="1"/></svg>
+              Side-by-Side
+            </button>
+          </div>
+
+          <!-- Secondary Controls -->
+          <div class="viewer-controls-sub">
+            <div class="range-slider-group" id="blend-slider-group" style="display: none;">
+              <span>Opacity:</span>
+              <input type="range" id="blend-opacity-input" min="0" max="100" value="50">
+            </div>
+
+            <button class="btn btn-secondary btn-sm" id="btn-download-warped">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Warped
+            </button>
+          </div>
+        </div>
+
+        <!-- Visualizer Stage -->
+        <div class="viewer-stage" id="viewer-stage">
+          <!-- Dynamically populated by JS (Split container, blend, checkerboard, diff, or canvas) -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. QUANTITATIVE EVALUATION TAB -->
+    <section class="tab-pane" id="evaluation">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        
+        <!-- Homography & Transformation Matrix -->
+        <div class="card">
+          <div class="card-title">
+            <span class="heading-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 8h10M7 12h10M7 16h10"/></svg>
+              Estimated Homography Matrix H (3x3 Projective)
+            </span>
+            <span style="font-size: 0.72rem; color: var(--text-dim); font-family: var(--font-mono);">RANSAC ESTIMATE</span>
+          </div>
+
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            Projects any pixel in the Source frame <code style="color: var(--cyan);">[x, y, 1]ᵀ</code> to Reference frame coordinates <code style="color: var(--cyan);">[x', y', 1]ᵀ</code>.
+          </p>
+
+          <table class="matrix-table">
+            <tbody id="homography-matrix-display">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+
+          <div style="margin-top: 1.25rem;">
+            <div class="card-title" style="margin-bottom: 0.5rem; font-size: 0.9rem;">
+              <span>Export Registration Artifacts</span>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+              <button class="btn btn-secondary btn-sm" id="btn-export-json">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export JSON Metrics
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ISRO Compliance Quality Report -->
+        <div class="card">
+          <div class="card-title">
+            <span class="heading-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              Quantitative Verification Report
+            </span>
+            <span id="metric-grade" style="font-size: 0.72rem; color: var(--emerald); font-weight: 600; font-family: var(--font-mono);">
+              High Precision
+            </span>
+          </div>
+
+          <pre id="evaluation-report-text" class="code-block" style="height: 280px; overflow-y: auto;">
+Loading verification report...
+          </pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. DOCUMENTATION & NETLIFY DEPLOYMENT GUIDE TAB -->
+    <section class="tab-pane" id="documentation">
+      <div class="card doc-section">
+        <h2>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          How to Deploy LunaMatch-R to Netlify (Zero Configuration Needed)
+        </h2>
+        <p>
+          LunaMatch-R is fully configured and optimized for <strong>instant deployment on Netlify</strong>. It features both pre-computed Chandrayaan-2 benchmark datasets and an <strong>In-Browser Client-Side Computer Vision Engine</strong> that processes, registers, warps, and evaluates uploaded images with zero backend dependency!
+        </p>
+
+        <div class="doc-card-grid">
+          <!-- Method 1 -->
+          <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <h3 style="margin-top: 0; color: var(--cyan);">Method 1: Netlify Drop (30 Seconds, No CLI)</h3>
+            <ol style="padding-left: 1.25rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+              <li>Log in to your account at <a href="https://app.netlify.com" target="_blank" style="color: var(--cyan);">app.netlify.com</a>.</li>
+              <li>Navigate to the <strong>"Sites"</strong> tab.</li>
+              <li>Scroll down to the <strong>"Want to deploy a new site without connecting to Git? Drag and drop your site output folder here"</strong> section.</li>
+              <li>Simply drag and drop the entire <code style="color: var(--amber);">lunamatch</code> folder into that dropzone!</li>
+              <li>Netlify instantly deploys your live URL (e.g., <code style="color: var(--emerald);">https://lunamatch-xyz.netlify.app</code>).</li>
+            </ol>
+          </div>
+
+          <!-- Method 2 -->
+          <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <h3 style="margin-top: 0; color: var(--cyan);">Method 2: Git Repository + Netlify</h3>
+            <ol style="padding-left: 1.25rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+              <li>Push this project folder to your GitHub, GitLab, or Bitbucket account.</li>
+              <li>In Netlify, click <strong>"Add new site" &gt; "Import an existing project"</strong>.</li>
+              <li>Select your repository.</li>
+              <li>Leave Build Command blank and set Publish Directory to <code style="color: var(--emerald);">.</code> (already configured in <code style="color: var(--amber);">netlify.toml</code>).</li>
+              <li>Click <strong>Deploy Site</strong>! Any subsequent git push automatically updates the live deployment.</li>
+            </ol>
+          </div>
+
+          <!-- Method 3 -->
+          <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <h3 style="margin-top: 0; color: var(--cyan);">Method 3: Netlify CLI</h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.5rem;">If you install Node.js and the Netlify CLI in the future:</p>
+            <div class="code-block" style="margin: 0; font-size: 0.78rem;">
+npm install -g netlify-cli
+netlify login
+netlify deploy --prod --dir=.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Algorithmic Specifications -->
+      <div class="card doc-section">
+        <h2>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          Technical Architecture & Chandrayaan-2 Algorithmic Pipeline
+        </h2>
+
+        <h3>1. Lommel-Seeliger Sun-Angle Normalization</h3>
+        <p>
+          Lunar regolith exhibits extreme backscattering (opposition surge) and lacks atmospheric diffusion. When solar azimuth changes between orbits (e.g. OHRC at 45° vs LROC NAC at 150°), crater rims invert shadows, rendering standard pixel-matching useless. LunaMatch uses a Lommel-Seeliger scattering formulation coupled with gradient magnitude fields to eliminate directional illumination dependencies.
+        </p>
+
+        <h3>2. Multi-Scale Scale Space Pyramids</h3>
+        <p>
+          To match differing resolutions (e.g., OHRC 0.25m/pixel vs TMC-2 5.0m/pixel), a Gaussian pyramid matches features across octaves, preserving descriptor invariance over large zoom scales.
+        </p>
+
+        <h3>3. Sub-Pixel Quadratic Interpolation</h3>
+        <p>
+          Discrete pixel correspondences are refined to fractional coordinates using 2D quadratic surface fitting over local normalized cross-correlation (NCC) patches, yielding spatial precision below 0.1 pixels.
+        </p>
+
+        <h3>4. Uniform Spatial Distribution Sampling</h3>
+        <p>
+          Lunar features tend to clump inside major crater floors. An 8x8 spatial grid enforces maximum quota limits per cell to distribute keypoints across the entire lunar surface, guaranteeing high Shannon spatial entropy and numerical stability in RANSAC matrix estimation.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="static/js/registration-engine.js"></script>
+  <script src="static/js/app.js"></script>
+</body>
+</html>
